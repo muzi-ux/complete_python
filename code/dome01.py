@@ -15,3 +15,18 @@
 #         break
 #     else:
 #         lis.append(mi_input)
+
+# print 打印语句
+print('hello word !')
+# print 打印语句结尾默认换行
+# end='' 打印语句的结尾不进行换行，
+print('hello', end=' ')  # 打印语句以空格结束，end='xxx' 引号内部所放的内容会出现在该打印语句的最后
+print('word !', end='\n')
+
+name = '木子'
+age = 18
+print(name, age, sep='-')  # sep='xx' 引号内的符号会作为打印语句的连接符
+
+name = '张二狗'
+age = 18
+print(name, age, sep="-")
