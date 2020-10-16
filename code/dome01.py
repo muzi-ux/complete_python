@@ -31,7 +31,7 @@
 # age = 18
 # print(name, age, sep="-")
 
-import pymssql
+# import pymssql
 
 # conn = pymssql.connect('DESKTOP-SPKTIB1\SQLEXPRESS', 'sa', '123456', 'student')
 # # if conn:
@@ -50,6 +50,13 @@ import pymssql
 # charset="UTF-8"
 # serve=r'SQLEXPRESS',
 # conn()
+#
+# age = input("请输入年龄").77
+# print(type(age))
 
-age = input("请输入年龄")
-print(type(age))
+height = float(input("身高"))
+zh = int(input("体重"))
+
+a = zh / (height * height)
+
+print(a)
