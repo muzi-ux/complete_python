@@ -54,9 +54,3 @@
 # age = input("请输入年龄").77
 # print(type(age))
 
-height = float(input("身高"))
-zh = int(input("体重"))
-
-a = zh / (height * height)
-
-print(a)
