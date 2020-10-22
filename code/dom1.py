@@ -1,6 +1,7 @@
 #! usr/bin/python
 # -*- coding:utf-8 -*-
 import pymssql
+import pyodbc as pyodbc
 
 """
 掷骰子
@@ -24,11 +25,12 @@ for i in range(3):
     # user      用户名
     # password  密码
     # database  数据库名称
-    server = 'DESKTOP-SPKTIB1'
+    server = '127.0.0.1'
     user = 'sa'
     password = '<LRZ+com-123>'
     database = 'username'
-    conn = pymssql.connect(server, user, password, database)
+    conn = pyodbc.connect(
+        r'DRIVER={SQL Server Native Client 11.0};SERVER=127.0.0.1;DATABASE=username;UID=sa;PWD=<LRZ+com-123>')
     print(conn)
     if username == username and password == password1:
         print("\t\t", end="")
