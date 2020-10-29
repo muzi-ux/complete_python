@@ -16,30 +16,39 @@
 del 删除表单的用法：del wb['sheet_name']
 remove 删除表单的用法：sh = wb['sheet_name'] wb.remove(sh)
 """
-import openpyxl
-
+import base64
 from openpyxl import load_workbook
 
 # 打开文件，参数是路径
-wb = load_workbook('./test.xlsx')
+wb = load_workbook('./server.xlsx')
 # 获取文件的页面
 ws = wb['Sheet1']
-a = 'A'
-s = 0
-for sheet in wb:
-    sa = a + str(s)
-    s += 1
-    # 获取指定行
-    print(sheet[1])
-    # 获取指定列
-    print(sheet['A'])
-    # 获取特定单元格
-    print(sheet['A1'])
+# a = 'A'
+# s = 0
+# for sheet in wb:
+#     sa = a + str(s)
+#     s += 1
+#     # 获取指定行
+#     print(sheet[1])
+#     # 获取指定列
+#     print(sheet['A'])
+#     # 获取特定单元格
+#     print(sheet['A1'])
 
-while s < 3:
-    sa = a + str(s)
-    # 获取指定列
-    print(sheet[sa].value)
-    s += 1
-# 关闭文件
-wb.close()
+# while s < 3:
+#     sa = a + str(s)
+#     # 获取指定列
+#     print(sheet[sa].value)
+#     s += 1
+# # 关闭文件
+# wb.close()
+#
+# lis = ['A', 'B', 'C', 'D']
+#
+# for grid in lis:
+#     for one in range(30):
+#         cell = grid + str(one)
+#         print(cell)
+
+ws['A1'] = "测试数据"
+wb.save('./server.xlsx')
