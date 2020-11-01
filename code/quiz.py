@@ -15,9 +15,10 @@ def main():
     print('*' * 5 + "欢迎进入游戏" + "*" * 5)
     currency1 = 0
     status = True
+    bol = ""
     while True:
         if status:
-            user1 = input('注册/登陆/退出(1/2/0):')
+            user1 = input('注册(1)/登陆(2)/退出(0):')
             if user1 == "1":
                 bol = registered('../test/server.xlsx', 'Sheet1')
                 if bol[1] != None:
@@ -44,6 +45,7 @@ def main():
                     currency1 = recharge()
 
 
+# 公共函数读取文件内的信息
 def public(url, Sheet):
     lis = []
     from openpyxl import load_workbook
@@ -54,22 +56,22 @@ def public(url, Sheet):
     cell1 = 'A'
     cell2 = 'B'
     cell3 = 'C'
+    none = None
     while bol:
         information = {}
-        none = None
         cell1 = cell1 + str(i)
         cell2 = cell2 + str(i)
         cell3 = cell3 + str(i)
         if sheet[cell1].value == none:
             server.close()
-            return lis, i
+            return lis, i + 1
         else:
+            i += 1
             information['name'] = sheet[cell1].value
             information['password'] = sheet[cell2].value
             information['rechrages'] = sheet[cell3].value
             lis.append(information)
             information = {}
-        i += 1
 
 
 # 身份验证函数，主要负责用户的身份验证，读取用户的用户名，游戏币等信息
@@ -89,7 +91,7 @@ def authentication():
             return True, list1[2]
         else:
             print('登录失败！')
-            return False, None
+            return False, 0
 
 
 # 注册函数
@@ -98,22 +100,24 @@ def registered(url, sheet):
     注册函数，负责用户的注册信息，吧注册的信息写入到表格
     :return: None
     """
-    import re
     from openpyxl import load_workbook
     server = load_workbook(url)
     sheet1 = server[sheet]
-    sum2 = str(public('../test/server.xlsx', 'Sheet1')[1])
+    sum2 = str(public('../test/server.xlsx', 'Sheet1')[1] + 1)
     letters = ['A', 'B', 'C']
     letters = [x + sum2 for x in letters]
-    name = input('请输入用户名(4-6个字符)：')
-    password = input('请输入密码：')
-    result = re.search(r'.{4,6}', name)
-    sheet1[letters[0]] = name
-    sheet1[letters[1]] = password
-    print('注册成功')
-    server.save(url)
-    server.close()
-    return True, None
+    while True:
+        name = input('请输入用户名(4-6个字符)：')
+        password = input('请输入密码：')
+        if 4 <= len(name) <= 6:
+            sheet1[letters[0]] = name
+            sheet1[letters[1]] = password
+            print('注册成功')
+            server.save(url)
+            server.close()
+            return True, 0
+        else:
+            print('用户名不和规范,4-6个字符')
 
 
 # 充值函数，负责用户的充值
@@ -122,13 +126,16 @@ def recharge():
     充值函数，负责用户的充值，充值只能是100的倍数
     :return: 充值的币的个数
     """
-    money = int(input('请输入你要充值的钱数(必须是100的倍数)：'))
-    if money % 100 != 0:
-        print('请输入100的倍数！')
-    else:
-        currency = (money / 100) * 3
-        print('充值成功%d个游戏币!' % currency)
-        return currency
+    while True:
+        money = int(input('请输入你要充值的钱数,输入0退出充值(必须是100的倍数)：'))
+        if money == 0:
+            return 0
+        elif money % 100 != 0:
+            print('请输入100的倍数！')
+        else:
+            currency = (money / 100) * 3
+            print('充值成功%d个游戏币!' % currency)
+            return currency
 
 
 # 游戏函数，负责游戏的进行，当游戏币不足是退出，用户主动退出
@@ -153,6 +160,11 @@ def game(time):
     else:
         print('游戏币不足，请充值！')
         return time
+
+
+# 保存函数吧用户的数据保存回表格
+def save():
+    pass
 
 
 # 程序入口
